@@ -55,7 +55,7 @@ def get_files_content(directory):
     return file_contents
 
 
-@app.route("/collection/<path:name>/index", methods=["GET"])
+@app.route("/api/collection/<path:name>/index", methods=["GET"])
 def index(name):
     start_time = time.time()
     collection = get_collection(name)
@@ -130,7 +130,7 @@ def index(name):
     return jsonify({"success": True})
 
 
-@app.route("/collection/<path:name>", methods=["GET"])
+@app.route("/api/collection/<path:name>", methods=["GET"])
 def query_collection(name):
     query = request.args.get("query")
     collection = get_collection(name)
@@ -139,13 +139,13 @@ def query_collection(name):
     return jsonify({"result": result})
 
 
-@app.route("/collection/<path:name>/info", methods=["GET"])
+@app.route("/api/collection/<path:name>/info", methods=["GET"])
 def info(name):
     collection = get_collection(name)
     return jsonify({"count": collection.count(), "peek": collection.peek()})
 
 
-@app.route("/collections", methods=["GET"])
+@app.route("/api/collections", methods=["GET"])
 def list_collections():
     return jsonify({"collections": client.list_collections()})
 
