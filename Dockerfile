@@ -1,4 +1,4 @@
-FROM python:3.10.11-bullseye as build
+FROM python:3.11.3-bullseye as build
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
@@ -20,5 +20,6 @@ ENV CHROMA_PERSIST_DIRECTORY=./.chroma
 EXPOSE 5000
 
 # Run the application:
+COPY .chroma .
 COPY app.py .
 CMD ["python", "app.py"]
