@@ -30,7 +30,7 @@ ef = embedding_functions.InstructorEmbeddingFunction(
     model_name="hkunlp/instructor-xl", device="cpu"
 )
 
-markdown_splitter = MarkdownTextSplitter(chunk_size=256, chunk_overlap=26)
+markdown_splitter = MarkdownTextSplitter(chunk_size=1024, chunk_overlap=100)
 
 
 def create_id(text):
@@ -145,10 +145,18 @@ def info(name):
     return jsonify({"count": collection.count(), "peek": collection.peek()})
 
 
+@app.route("/collections", methods=["GET"])
+def list_collections():
+    return jsonify({"collections": client.list_collections()})
+
+
 @app.route("/healthz", methods=["GET"])
 def healthz():
     return jsonify({"success": True})
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    from waitress import serve
+
+    serve(app, host="0.0.0.0", port=8080)
+    # app.run(debug=True, host='0.0.0.0')

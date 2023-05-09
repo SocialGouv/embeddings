@@ -31,7 +31,7 @@ services:
     # volumes:
     #   - ../goinfre:/goinfre
     ports:
-      - 5042:5000
+      - 8080:8080
 
 # volumes:
 #   index_data:

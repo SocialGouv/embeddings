@@ -20,6 +20,6 @@ ENV CHROMA_PERSIST_DIRECTORY=./.chroma
 EXPOSE 5000
 
 # Run the application:
-COPY .chroma .
+COPY .chroma ./.chroma
 COPY app.py .
 CMD ["python", "app.py"]
