@@ -6,7 +6,7 @@
 Create a `./.env` file containing the following variables
 ```bash
 DATA_DIRECTORY=./my_md_files # folder storing files md to index
-CHROMA_PERSIST_DIRECTORY=./.chroma # folder storing indexes
+CHROMA_PERSIST_DIRECTORY=./.database # folder storing indexes
 ```
 
 ### With docker

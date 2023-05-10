@@ -8,7 +8,7 @@ services:
     environment:
       DATA_DIRECTORY: ${DATA_DIRECTORY}
       CHROMA_PERSIST_DIRECTORY: ${CHROMA_PERSIST_DIRECTORY}
-    # volumes:
-    #   - ../goinfre:/goinfre
+    volumes:
+      - ./data:/opt/data
     ports:
       - 8080:8080

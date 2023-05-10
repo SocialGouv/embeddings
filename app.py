@@ -30,7 +30,7 @@ ef = embedding_functions.InstructorEmbeddingFunction(
     model_name="hkunlp/instructor-xl", device="cpu"
 )
 
-markdown_splitter = MarkdownTextSplitter(chunk_size=1024, chunk_overlap=100)
+markdown_splitter = MarkdownTextSplitter(chunk_size=512, chunk_overlap=0)
 
 
 def create_id(text):
@@ -87,7 +87,7 @@ def index(name):
         )
 
         print(
-            "    File",
+            "     File",
             '"' + os.path.basename(file["path"]) + '"',
             "has been splitted into",
             len(file["chunks"]),
@@ -103,7 +103,7 @@ def index(name):
             metadatas.append(document.metadata)
 
         print(
-            "    Adding",
+            "     Adding",
             len(file["chunks"]),
             "chunks to",
             '"' + name + '"',
@@ -114,7 +114,7 @@ def index(name):
         collection.add(ids=ids, documents=texts, metadatas=metadatas)
 
         print(
-            "    ",
+            "     ",
             len(file["chunks"]),
             "chunks added in:",
             round(time.time() - add_start_time, 2),
@@ -134,7 +134,7 @@ def index(name):
 def query_collection(name):
     query = request.args.get("query")
     collection = get_collection(name)
-    result = collection.query(query_texts=[query], n_results=3)
+    result = collection.query(query_texts=[query], n_results=5)
     print(result)
     return jsonify({"result": result})
 
@@ -147,7 +147,10 @@ def info(name):
 
 @app.route("/api/collections", methods=["GET"])
 def list_collections():
-    return jsonify({"collections": client.list_collections()})
+    collections = client.list_collections()
+    print(collections)
+    collection_names = [collection.name for collection in collections]
+    return jsonify({"collections": collection_names})
 
 
 @app.route("/healthz", methods=["GET"])
